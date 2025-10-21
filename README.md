@@ -49,7 +49,7 @@ src/
 1. **Clone the repository**
    ```bash
    git clone https://github.com/Iris-Ghislaine/movie-explorer
-   cd project
+   cd movie-explorer
    ```
 
 2. **Install dependencies**
@@ -108,7 +108,12 @@ https://movie-explorer-appli.netlify.app/
 ## Screenshots
 
 ## home
+<img width="1837" height="876" alt="image" src="https://github.com/user-attachments/assets/4ce67b50-1652-491b-b406-6bf7ec14a12b" />
+<img width="1886" height="866" alt="image" src="https://github.com/user-attachments/assets/9cc249c4-3e92-45d6-986a-4c29c37e9531" />
 
 ## favorite
+<img width="1912" height="859" alt="image" src="https://github.com/user-attachments/assets/6cc9ad59-7897-4007-8599-2f36ba9fc283" />
 
+## movie Details
+<img width="1913" height="878" alt="image" src="https://github.com/user-attachments/assets/ca4a5ef7-03c2-42fd-a563-44f33656eb61" />
 
