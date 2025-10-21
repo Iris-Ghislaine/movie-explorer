@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
+import MovieDetails from './pages/MoviesDetails';
+import Favorites from './pages/Favorites';
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
@@ -35,7 +37,8 @@ function App() {
         <Navbar darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
         <Routes>
           <Route path="/" element={<Home />} />
-      
+          <Route path="/movie/:id" element={<MovieDetails />} />
+          <Route path="/favorites" element={<Favorites />} />
         </Routes>
       </div>
     </Router>
