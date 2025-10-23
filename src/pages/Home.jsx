@@ -4,20 +4,30 @@ import { useFavorites } from '../hooks/useFavorites';
 import MovieCard from '../components/MovieCard';
 import SearchBar from '../components/SearchBar';
 import CategoryFilter from '../components/CategoryFilter';
+import Pagination from '../components/Pagination';  // Added: Import
 
 const Home = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedGenre, setSelectedGenre] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);  // Added: Page state
+  const ITEMS_PER_PAGE = 20;  // Added: Config
   const { movies, loading, error } = useFetchMovies(searchQuery, selectedGenre);
   const { isFavorite, toggleFavorite } = useFavorites();
 
   const handleSearch = (query) => {
     setSearchQuery(query);
+    setCurrentPage(1);  // Added: Reset page on search
   };
 
   const handleGenreChange = (genre) => {
     setSelectedGenre(genre);
+    setCurrentPage(1);  // Added: Reset page on filter
   };
+
+  // Added: Slice for current page
+  const indexOfLast = currentPage * ITEMS_PER_PAGE;
+  const indexOfFirst = indexOfLast - ITEMS_PER_PAGE;
+  const currentMovies = movies.slice(indexOfFirst, indexOfLast);
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -72,10 +82,10 @@ const Home = () => {
       {!loading && !error && movies.length > 0 && (
         <>
           <div className="mb-4 text-gray-600 dark:text-gray-400">
-            Showing {movies.length} results
+            Showing {indexOfFirst + 1}-{Math.min(indexOfLast, movies.length)} of {movies.length} results
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {movies.map((movie) => (
+            {currentMovies.map((movie) => (  // Updated: Use currentMovies
               <MovieCard
                 key={movie.id}
                 movie={movie}
@@ -84,6 +94,12 @@ const Home = () => {
               />
             ))}
           </div>
+          <Pagination  // Added: Pagination component
+            currentPage={currentPage}
+            totalItems={movies.length}
+            itemsPerPage={ITEMS_PER_PAGE}
+            onPageChange={setCurrentPage}
+          />
         </>
       )}
     </div>
