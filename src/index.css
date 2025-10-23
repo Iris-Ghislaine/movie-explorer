@@ -1,1 +1,15 @@
-@import "tailwindcss"
+@import "tailwindcss";
+
+/* Enable dark mode variant for v4 class strategy */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Optional: Add smooth transitions to all elements for better UX */
+@layer base {
+  *,
+  *::before,
+  *::after {
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+  }
+}

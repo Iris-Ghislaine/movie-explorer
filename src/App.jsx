@@ -1,19 +1,40 @@
+import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { AnimatePresence } from 'framer-motion';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import MovieDetails from './pages/MoviesDetails';
 import Favorites from './pages/Favorites';
 
 function App() {
+  // Synchronous initial load from localStorage to avoid flash
+  const [theme, setTheme] = useState(() => {
+    const saved = localStorage.getItem('theme');
+    return saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  });
+
+  // Single effect: Apply class after initial render
+  useEffect(() => {
+    document.documentElement.classList.toggle('dark', theme === 'dark');
+    localStorage.setItem('theme', theme);
+    console.log('Applied theme:', theme, 'HTML has dark class:', document.documentElement.classList.contains('dark'));  // Keep for now, remove later
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme(prev => prev === 'light' ? 'dark' : 'light');
+  };
+
   return (
     <Router>
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/movie/:id" element={<MovieDetails />} />
-          <Route path="/favorites" element={<Favorites />} />
-        </Routes>
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-500">  {/* Increased duration for smooth flip */}
+        <Navbar onToggleTheme={toggleTheme} currentTheme={theme} />
+        <AnimatePresence mode="wait">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/movie/:id" element={<MovieDetails />} />
+            <Route path="/favorites" element={<Favorites />} />
+          </Routes>
+        </AnimatePresence>
       </div>
     </Router>
   );
