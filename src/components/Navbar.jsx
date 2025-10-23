@@ -9,7 +9,7 @@ const Navbar = ({ onToggleTheme, currentTheme }) => {
     <nav className="bg-white dark:bg-gray-900 shadow-lg sticky top-0 z-50 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          {/* Left: Logo */}
+          {/* Logo */}
           <div className="flex-shrink-0">
             <Link
               to="/"
@@ -19,7 +19,7 @@ const Navbar = ({ onToggleTheme, currentTheme }) => {
             </Link>
           </div>
 
-          {/* Center: Navigation Links (hidden on mobile, centered on md+ with space) */}
+          {/* Navigation Links (hidden on mobile) */}
           <div className="hidden md:flex mx-auto space-x-8"> 
             <Link
               to="/"
@@ -34,8 +34,6 @@ const Navbar = ({ onToggleTheme, currentTheme }) => {
               Favorites
             </Link>
           </div>
-
-          {/* Right: Theme Toggle + Mobile Menu Toggle */}
           <div className="flex items-center space-x-3 flex-shrink-0">
             <ThemeToggle onToggle={onToggleTheme} currentTheme={currentTheme} />
             <button

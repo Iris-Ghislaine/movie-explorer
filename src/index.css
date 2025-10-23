@@ -3,7 +3,6 @@
 /* Enable dark mode variant for v4 class strategy */
 @custom-variant dark (&:where(.dark, .dark *));
 
-/* Optional: Add smooth transitions to all elements for better UX */
 @layer base {
   *,
   *::before,

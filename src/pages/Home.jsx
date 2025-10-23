@@ -4,27 +4,26 @@ import { useFavorites } from '../hooks/useFavorites';
 import MovieCard from '../components/MovieCard';
 import SearchBar from '../components/SearchBar';
 import CategoryFilter from '../components/CategoryFilter';
-import Pagination from '../components/Pagination';  // Added: Import
+import Pagination from '../components/Pagination'; 
 
 const Home = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedGenre, setSelectedGenre] = useState('');
-  const [currentPage, setCurrentPage] = useState(1);  // Added: Page state
-  const ITEMS_PER_PAGE = 20;  // Added: Config
+  const [currentPage, setCurrentPage] = useState(1);  
+  const ITEMS_PER_PAGE = 20;  
   const { movies, loading, error } = useFetchMovies(searchQuery, selectedGenre);
   const { isFavorite, toggleFavorite } = useFavorites();
 
   const handleSearch = (query) => {
     setSearchQuery(query);
-    setCurrentPage(1);  // Added: Reset page on search
+    setCurrentPage(1);  
   };
 
   const handleGenreChange = (genre) => {
     setSelectedGenre(genre);
-    setCurrentPage(1);  // Added: Reset page on filter
+    setCurrentPage(1);  
   };
 
-  // Added: Slice for current page
   const indexOfLast = currentPage * ITEMS_PER_PAGE;
   const indexOfFirst = indexOfLast - ITEMS_PER_PAGE;
   const currentMovies = movies.slice(indexOfFirst, indexOfLast);
@@ -85,7 +84,7 @@ const Home = () => {
             Showing {indexOfFirst + 1}-{Math.min(indexOfLast, movies.length)} of {movies.length} results
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {currentMovies.map((movie) => (  // Updated: Use currentMovies
+            {currentMovies.map((movie) => ( 
               <MovieCard
                 key={movie.id}
                 movie={movie}
@@ -94,7 +93,7 @@ const Home = () => {
               />
             ))}
           </div>
-          <Pagination  // Added: Pagination component
+          <Pagination  
             currentPage={currentPage}
             totalItems={movies.length}
             itemsPerPage={ITEMS_PER_PAGE}
